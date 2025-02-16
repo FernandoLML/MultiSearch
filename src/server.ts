@@ -6,12 +6,12 @@ import { searchInData } from "./search";
 const app = express();
 app.use(cors());
 app.use(express.json());
-/*
-app.get("/", (req: Request, res: Response) => {
-    res.send("API do MultiSearch funcionando!");
-});*/
 
-app.get("/search", (req: express.Request, res: express.Response ) => {
+app.get("/", (req: express.Request, res: express.Response) => {
+    res.send("API do MultiSearch funcionando!");
+});
+
+app.get("/search", (req: express.Request, res: express.Response) => {
     const query = req.query.q as string;
     if (!query){
 
