@@ -1,4 +1,4 @@
-import express from "express";
+import express, {  Request, Response } from "express";
 import cors from "cors";
 import { searchInData } from "./search";
 
@@ -13,13 +13,19 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.get("/search", (req: Request, res: Response) => {
     const query = req.query.q as string;
-    if (!query){
-
-     return res.status(400).json({ error: "Query não pode estar vazia"});
+  
+    let statusCode = 200;
+    let response;
+  
+    if (!query) {
+      statusCode = 400;
+      response = { error: "Query não pode estar vazia" };
+    } else {
+      response = { results: searchInData(query) };
     }
-    const results = searchInData(query);
-    res.json({ results });
-});
+  
+    res.status(statusCode).json(response);
+  });
 
 
 const PORT = 3000;
